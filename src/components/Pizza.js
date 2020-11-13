@@ -2,7 +2,7 @@ import React from 'react';
 function Pizza(){
     return(
         <div>
-            <h1>Pizza Page</h1>
+            <h1 className='pizzaTitle'>Pizza Page</h1>
         </div>
     )
 }

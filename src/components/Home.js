@@ -1,15 +1,16 @@
 import React from 'react';
-import styled from 'styled-components'
-
-const H1 = styled.h1`
-    color: #A5E6BA;
-`;
-
+import {useHistory} from 'react-router-dom'
 
 function Home(){
+    const history = useHistory();
+  
+  const routeToOrder = () => {
+    history.push("/pizza");
+  };
     return(
-        <div>
-            <H1>Home Page</H1>
+        <div className='home'>
+            <h1 className='homeTitle'>Pizza Palace</h1>
+            <button className='orderBtn' onClick={routeToOrder}>Order</button>
         </div>
     )
 }
