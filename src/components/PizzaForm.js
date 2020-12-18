@@ -35,13 +35,7 @@ export default function PizzaForm() {
   // submit order button
   const [buttonIsDisabled, setButtonIsDisabled] = useState(initiialBtn);
   // form errors validation
-  const [errors, setErrors] = useState({
-    size: "",
-    sauce: "",
-    toppings: "",
-    substitute: "",
-    special: "",
-  });
+  const [errors, setErrors] = useState(initialError);
   // server error
   const [serverError, setServerError] = useState("");
   //api link
@@ -61,16 +55,43 @@ export default function PizzaForm() {
 
   //submiting pizza orders
   const postPizzaOrders = (newPizzaOrder) => {
-    axios.post(apiLink, newPizzaOrder).then((res) => {
-      
+    axios
+      .post(apiLink, newPizzaOrder)
+      .then((res) => {
+        setPizzaOrders([res.data, ...pizzaOrders]);
+        setPizza(innitialPizza);
+      })
+      .catch((err) => {
+        return err;
+      });
+  };
+
+  // onChange function
+  const inputChange = (name, value) => {
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(() => {
+        setErrors({
+          ...errors,
+          [name]: "",
+        });
+      })
+      .catch((err) => {
+        setErrors({
+          ...errors,
+          [name]: err.errors[0],
+        });
+      });
+
+    setPizza({
+      ...pizza,
+      [name]: value,
     });
   };
 
   // onSubmit function
-  const formSubmit = (event) => {};
-
-  // onChange function
-  const inputChange = (name, value) => {};
+  const formSubmit = () => {};
 
   return (
     <div>
