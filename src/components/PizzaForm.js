@@ -61,7 +61,9 @@ export default function PizzaForm() {
 
   //submiting pizza orders
   const postPizzaOrders = (newPizzaOrder) => {
-    axios.post(apiLink, newPizzaOrder).then((res) => {});
+    axios.post(apiLink, newPizzaOrder).then((res) => {
+      
+    });
   };
 
   // onSubmit function
