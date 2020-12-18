@@ -26,41 +26,56 @@ function PizzaFormDetails(props) {
       </select>
       <div>
         <p>Choice of Sauce</p>
-        <input
-          type="radio"
-          id="marinara"
-          name="sauce"
-          value={pizza.sauce}
-          onChange={onChange}
-        />
-        <label htmlFor="marinara">Marinara Sauce</label>
+
+        <label htmlFor="marinara">
+          <input
+            type="radio"
+            id="marinara"
+            name="sauce"
+            value="marinara"
+            checked={pizza.sauce === "marinara"}
+            onChange={onChange}
+          />
+          Marinara Sauce
+        </label>
         <br />
-        <input
-          type="radio"
-          id="garlic"
-          name="sauce"
-          value={pizza.sauce}
-          onChange={onChange}
-        />
-        <label htmlFor="gralic">Garlic Ranch</label>
+        <label htmlFor="gralic">
+          <input
+            type="radio"
+            id="garlic"
+            name="sauce"
+            value="garlic"
+            checked={pizza.sauce === "garlic"}
+            onChange={onChange}
+          />
+          Garlic Ranch
+        </label>
         <br />
-        <input
-          type="radio"
-          id="bbq"
-          name="sauce"
-          value={pizza.sauce}
-          onChange={onChange}
-        />
-        <label htmlFor="bbq">BBQ Sauce</label>
+
+        <label htmlFor="bbq">
+          <input
+            type="radio"
+            id="bbq"
+            name="sauce"
+            value="bbq"
+            checked={pizza.sauce === "bbq"}
+            onChange={onChange}
+          />
+          BBQ Sauce
+        </label>
         <br />
-        <input
-          type="radio"
-          id="spinach"
-          name="sauce"
-          value={pizza.sauce}
-          onChange={onChange}
-        />
-        <label htmlFor="spinach">Spinach Alfredo</label>
+
+        <label htmlFor="spinach">
+          <input
+            type="radio"
+            id="spinach"
+            name="sauce"
+            value="spinach"
+            checked={pizza.sauce === "spinach"}
+            onChange={onChange}
+          />
+          Spinach Alfredo
+        </label>
       </div>
       <p>{errors.sauce}</p>
 

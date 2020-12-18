@@ -4,6 +4,7 @@ import axios from "axios";
 import styled from "styled-components";
 import formSchema from "../validation/formSchema";
 import PizzaFormDetails from "./PizzaFormDetails";
+import PizzaOrders from "./PizzaOrders";
 
 const innitialPizza = {
   size: "",
@@ -32,6 +33,8 @@ export default function PizzaForm() {
   const [pizza, setPizza] = useState(innitialPizza);
   //pizza orders
   const [pizzaOrders, setPizzaOrders] = useState(initialOrders);
+  //post pizza orders
+  const [postOrders, setPostOrders] = useState(initialOrders);
   // submit order button
   const [buttonIsDisabled, setButtonIsDisabled] = useState(initiialBtn);
   // form errors validation
@@ -46,6 +49,7 @@ export default function PizzaForm() {
     axios
       .get(apiLink)
       .then((res) => {
+        console.log(res.data.data);
         setPizzaOrders(res.data);
       })
       .catch((err) => {
@@ -58,8 +62,8 @@ export default function PizzaForm() {
     axios
       .post(apiLink, newPizzaOrder)
       .then((res) => {
+        console.log(res.data);
         setPizzaOrders([res.data, ...pizzaOrders]);
-        setPizza(innitialPizza);
       })
       .catch((err) => {
         return err;
@@ -91,7 +95,34 @@ export default function PizzaForm() {
   };
 
   // onSubmit function
-  const formSubmit = () => {};
+  const formSubmit = () => {
+    const newPizzaOrder = {
+      size: pizza.size,
+      sauce: pizza.sauce,
+      topping: [
+        "pepperoni",
+        "italian",
+        "meatball",
+        "mushrooms",
+        "roastedSpinach",
+        "redOnion",
+      ].filter((tops) => pizza[tops]),
+      substitute: false,
+      special: pizza.special,
+    };
+    postPizzaOrders(newPizzaOrder);
+    setPizza(innitialPizza);
+  };
+
+  useEffect(() => {
+    getPizzaOrders();
+  }, []);
+
+  useEffect(() => {
+    formSchema.isValid(pizza).then((valid) => {
+      setButtonIsDisabled(!valid);
+    });
+  }, [pizza]);
 
   return (
     <div>
@@ -103,6 +134,10 @@ export default function PizzaForm() {
         errors={errors}
         buttonIsDisabled={buttonIsDisabled}
       />
+
+      {/* {pizzaOrders.map((orders) => {
+        return <PizzaOrders key={orders.special} details={orders} />;
+      })} */}
     </div>
   );
 }
